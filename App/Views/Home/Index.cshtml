@@ -1,0 +1,50 @@
+﻿@model FormModel
+@{
+    ViewData["Search"] = "Home Page";
+}
+<div class="row">
+    <h2>Find and Compare Millions of Products</h2>
+    <div id="custom-search-input">
+        @*<div class="input-group col-md-12">
+                <input type="text" class="  search-query form-control" placeholder="Search" />
+                <span class="input-group-btn">
+                    <button class="btn btn-danger" type="button">
+
+                    </button>
+                </span>
+            </div>*@
+    </div>
+
+    <p>
+        @using (@Html.BeginForm("Index", "Home", FormMethod.Get))
+        {
+            <b>Search By:</b>
+            @Html.TextBox("search") <input type="submit" value="search" />
+        }
+    </p>
+    @{
+        List<Product> _list = ViewData["Product"] as List<Product>;
+    }
+
+
+    @if (_list != null)
+    {
+
+        foreach (var item in _list)
+        {
+            @*@Html.ActionLink(item, "Index");*@
+            {
+                <div class="card">
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <b>@item.Name</b>
+                            <h1><span class="label label-default">@item.Price</span></h1>
+                            <p class="list-group-item-text active">@item.SellerCompany.ToUpper()</p>
+
+                        </li>
+                    </ul>
+                </div>
+            }
+        }
+    }
+</div>
